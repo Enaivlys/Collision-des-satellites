@@ -39,8 +39,9 @@ Il faut importer le fichier data.txt qui fournit des données aux algorithmes ci
 **Direct.m** : définition de Direct et de ses fonctions internes 
 (source : https://ctk.math.ncsu.edu/Finkel_Direct/ )
 
-**MOID_CATALOGUE.m** : calcule le MOID sur le catalogue en faisant appel à Direct
-temps.m : programme qui calcule tc1 et tc2 (temps de passage des objets 1 et 2 à la conjonction) ainsi que dc1 et dc2 (temps de possible collision) et recalcule la distance entre les objets
+**MOID_CATALOGUE.m** : calcule le MOID sur le catalogue par la méthode naïve
+
+**DirectCatalogue.m** : calcule le MOID sur le catalogue en appelant Direct
 
 **temps.m** : programme qui calcule tc1 et tc2 (temps de passage des objets 1 et 2 à la conjonction) ainsi que dc1 et dc2 (temps de possible collision) et recalcule la distance entre les objets
 

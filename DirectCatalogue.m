@@ -1,12 +1,20 @@
+%Ce script renvoie le MOID de chaque satellite du catalogue à l'aide de
+%DIRECT, dans un vecteur MoidCatalogue
+
 %Le fichier data contient un vecteur ligne de taille 99*6=594
 %99: nombre de satellite
 %6: nombre de parametres (nom,a,e,i,w,omega)
 %chaque 6 cases consécutives correspondent aux 6 parametres de chaque
 %satellite
 
-%PS: abant de lancer le programme, penser a importer le fichier data.txt
-%(nécessaire pour la construction la matrice), en selectionnant
-%"numeric matrix" dans Output Type. 
+%PS: avant de lancer le programme, penser à importer le fichier data.txt
+%(nécessaire pour la construction la matrice), en selectionnant l'option
+%"numeric matrix". 
+
+
+global Q_Terre; global E; global P_Terre; 
+global q_autre; global e; global p_autre; 
+global K; global M; global N; global L
 
 
 %S: matrice de taille 99*6
@@ -19,7 +27,7 @@ end
 
 %Q: perihelion distance de la terre
 Q_Terre=0.98329;
-E=0.01671123;  
+E=0.01671123;
 P_Terre=Q_Terre*(1+E);
 w1=114.20783*pi/180;
 omega1=348.73936*pi/180;
@@ -48,19 +56,25 @@ Qz = cos(w1)*sin(i1);
 %i2: inclinaison du satellite
 
 % true anomaly
-V=[0:0.01:2*pi];
+V1=[0:0.01:2*pi];
+V2=[0:0.01:2*pi];
+bounds = [0 2*pi; 0 2*pi];
 
 for h=1:99
     
 % conic parameters
-    a=S(h,2);
     e=S(h,3);
-    i2=S(h,4)*pi/180;
-    omega2=S(h,5)*pi/180;
-    w2=S(h,6)*pi/180;
-    q_autre=(1-e)*a; 
-    p_autre=q_autre*(1+e);
     if e>0 && e<1
+        a=S(h,2);
+        i2=S(h,4)*pi/180;
+        omega2=S(h,5)*pi/180;
+        w2=S(h,6)*pi/180;
+        q_autre=(1-e)*a; 
+        p_autre=q_autre*(1+e);
+
+
+        %On prend que les ellipses. 
+
         % orbits components
         px = cos(w2)*cos(omega2-omega1)- sin(w2)*cos(i2)*sin(omega2-omega1);
         py = cos(w2)*sin(omega2-omega1) + sin(w2)*cos(i2)*cos(omega2-omega1);
@@ -74,33 +88,17 @@ for h=1:99
         L = Qx*px + Qy*py + Qz*pz;
         M = Px*qx + Py*qy + Pz*qz;
         N = Qx*qx + Qy*qy + Qz*qz;
-
-        % MOID
-        for k=1:length(V)
-            R=P_Terre/(1+E*cos(V(k)));
-             for j=1:length(V)
-                r=p_autre/(1+e*cos(V(j))); 
-
-                d2(k,j)=R^2+r^2-2*R*r*cos(V(k))*cos(V(j))*K-2*R*r*cos(V(k))*sin(V(j))*M-2*R*r*sin(V(k))*cos(V(j))*L-2*R*r*sin(V(j))*sin(V(k))*N;
-               
-               
-             end
-        end
-        
-        %sqrt(min(min(d2)))=MOID du satellite numero h
-        MOID_CAT(h)=sqrt(min(min(d2)));
-        %MOID_CAT: contiendra les MOID des satellites du catalogue     
-       
     end
+    
+    Problem.f = 'dCat';
+    [fmin,xmin] = Direct(Problem,bounds);
+    MoidCatalogue(h)=fmin;
 end
 
-seuil_spatial = 0.2;
-ir=find(MOID_CAT<seuil_spatial);
-risque=S(ir,1)
-%risque est le vecteur contenant le nom des satellites ayant un MOID < seuil spatial
-
-
-
+seuil_temporel = 0.2;
+i=find(MoidCatalogue<seuil_temporel);
+risque=S(i,1);
+%risque est le vecteur contenant le nom des satellites ayant un MOID < 0.2
 
 
 
