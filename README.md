@@ -1,13 +1,14 @@
 # Collision-des-satellites
 
 **Auteurs** : 
-Jaouahar BEN OUIRANE
 
-Adjanie KENGNI
+    Jaouahar BEN OUIRANE
 
-Sylviane LY
+    Adjanie KENGNI
 
-Soumaia TOUIL
+    Sylviane LY
+
+    Soumaia TOUIL
 
                                   Nous remercions notre encadrant Virgile Dubos.
 
@@ -25,7 +26,7 @@ Contenu :
 **data.txt** : notre version du catalogue avec seulement les ellipses et des paramètres ciblés.
 
 
-*=> Dans Matlab*: 
+*=> Dans Matlab* : 
 
 Il faut importer le fichier data.txt qui fournit des données aux algorithmes ci-dessous. Pour cela dans Matlab > Import data > Output type : numeric matrix 
 
