@@ -2,10 +2,14 @@
 
 **Auteurs** : 
 Jaouahar BEN OUIRANE
+
 Adjanie KENGNI
+
 Sylviane LY
+
 Soumaia TOUIL
-Nous remercions notre encadrant Virgile Dubos.
+
+                                  Nous remercions notre encadrant Virgile Dubos.
 
 Description : 
 --------------
@@ -13,14 +17,15 @@ Notre projet <collision des satellites > consiste à  la réalisation d’un log
 
 Contenu : 
 --------------
-Dans un terminal: (facultatif, voici comment nous avons obtenu le fichier data.txt)
+*=> Dans un terminal* : (facultatif, voici comment nous avons obtenu le fichier data.txt)
 
 **projet1.py** : permet de traiter le catalogue et récupérer seulement les paramètres qui nous intéressent. Le catalogue provient du site Neodys qui recense des objets célestes sur lequel nous allons appliquer notre algorithme. 
 (source : http://newton.dm.unipi.it/neodys/index.php?pc=5)
 
 **data.txt** : notre version du catalogue avec seulement les ellipses et des paramètres ciblés.
 
-Dans Matlab: 
+
+*=> Dans Matlab*: 
 
 Il faut importer le fichier data.txt qui fournit des données aux algorithmes ci-dessous. Pour cela dans Matlab > Import data > Output type : numeric matrix 
 
